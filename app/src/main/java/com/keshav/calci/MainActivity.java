@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             txtResult.setTextSize(30);
             txtMain.setTextColor(this.getResources().getColor(R.color.white));
             txtMain.setTextSize(40);
-
+            txtResult.setTextColor(getResources().getColor(R.color.gray));
             txtMain.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
             txtResult.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
         }
