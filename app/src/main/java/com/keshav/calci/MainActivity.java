@@ -102,19 +102,20 @@ public class MainActivity extends AppCompatActivity {
             txtResult.setTextColor(getResources().getColor(R.color.gray));
         }
 
-        if(view.getId() == R.id.btnMultiply){
-            operator = "*";}
+        if(operator.equals("")) {
 
-        else if(view.getId() == R.id.btnMinus){
-            operator = "-";}
-
-        else if(view.getId() == R.id.btnDivide){
-            operator = "/";}
-
-        else if(view.getId() == R.id.btnPlus){
-            operator = "+";
+            if (view.getId() == R.id.btnMultiply) {
+                operator = "*";
+            } else if (view.getId() == R.id.btnMinus) {
+                operator = "-";
+            } else if (view.getId() == R.id.btnDivide) {
+                operator = "/";
+            } else if (view.getId() == R.id.btnPlus) {
+                operator = "+";
+            }
+            txtMain.append(operator);
         }
-        txtMain.append(operator);
+
     }
 
     public void equal(View view) {
@@ -150,15 +151,23 @@ public class MainActivity extends AppCompatActivity {
         txtMain.setText("");
         txtResult.setText("");
         isNewOperator = false;
+        operator = "";
         output = 0.0;
     }
 
     public void delEvent(View view){
-        int lastIndex = txtMain.getText().toString().length();
-        txtMain.setText(txtMain.getText().toString().substring(0,lastIndex-1));
-        txtResult.setText(txtMain.getText().toString().substring(0,lastIndex-1));
-        if(txtMain.getText().toString().equals(""))
+        if(txtMain.getText().toString().length() == 1)
             clearEvent(view);
+        else {
+            int lastIndex = txtMain.getText().toString().length();
+            txtResult.setTextSize(30);
+            txtMain.setTextColor(this.getResources().getColor(R.color.white));
+            txtMain.setTextSize(40);
+
+            txtMain.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
+            txtResult.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
+        }
+
     }
 
     public void percentEvent(View view) {
