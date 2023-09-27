@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     boolean isNewOperator = false;
+
+    boolean isDot = false;
     TextView txtResult,txtMain;
     String initialNumber;
 
@@ -55,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
                     number += "0";
                 } else if (view.getId() == R.id.btnDZero) {
                     number += "00";
-                } else if (view.getId() == R.id.btnDot) {
+                } else if (view.getId() == R.id.btnDot && isDot == false) {
                     number += ".";
+                    isDot = true;
                 }
                 if (txtMain.getText().toString().length() == 15) {
                     txtMain.setTextSize(30);
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 txtResult.setText("=" + number);
             }
         }else{
+            isDot = false;
             String newNumber="";
                 if (view.getId() == R.id.btnOne) {
                     newNumber += "1";
@@ -89,8 +93,9 @@ public class MainActivity extends AppCompatActivity {
                     newNumber += "0";
                 } else if (view.getId() == R.id.btnDZero) {
                     newNumber += "00";
-                } else if (view.getId() == R.id.btnDot) {
+                } else if (view.getId() == R.id.btnDot && isDot == false) {
                     newNumber += ".";
+                    isDot = true;
                 }
                 txtMain.append(newNumber);
                 equal(view);
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void operatorEvent(View view) {
 
         isNewOperator = true;
+        int opIndex = txtMain.getText().toString().lastIndexOf(operator);
         if(output != 0.0){
             initialNumber = String.valueOf(output);
             txtMain.setText(initialNumber);
@@ -107,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
             txtResult.setTextSize(30);
             txtResult.setTextColor(getResources().getColor(R.color.gray));
         }
-
-        if(operator.equals("")) {
 
             if (view.getId() == R.id.btnMultiply) {
                 operator = "*";
@@ -119,16 +123,18 @@ public class MainActivity extends AppCompatActivity {
             } else if (view.getId() == R.id.btnPlus) {
                 operator = "+";
             }
-            txtMain.append(operator);
+            txtMain.setText(txtMain.getText().toString().substring(0, opIndex)+operator);
+        if(txtMain.getText().toString().equals("")){
+            txtMain.setText("0"+operator);
         }
 
     }
 
     public void equal(View view) {
-        int index = txtMain.getText().toString().lastIndexOf(operator);
+        int opIndex = txtMain.getText().toString().lastIndexOf(operator);
         if(initialNumber==null)
-            initialNumber = txtMain.getText().toString().substring(0,index);
-        String newNumber = txtMain.getText().toString().substring(index+1);
+            initialNumber = txtMain.getText().toString().substring(0,opIndex);
+        String newNumber = txtMain.getText().toString().substring(opIndex+1);
 
         if(operator.equals("+"))
             output = Double.parseDouble(initialNumber) + Double.parseDouble(newNumber);
@@ -150,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         txtResult.setTextSize(40);
         txtResult.setTextColor(this.getResources().getColor(R.color.white));
         txtMain.setTextSize(30);
+        isNewOperator = false;
     }
 
 
@@ -159,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         isNewOperator = false;
         operator = "";
         output = 0.0;
+        txtResult.setTextSize(40);
     }
 
     public void delEvent(View view){
@@ -179,16 +187,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void percentEvent(View view) {
-        double num;
-        int lastIndex = txtMain.getText().toString().lastIndexOf(operator);
-        if(operator == "*" || operator == "/") {
-            num = Double.parseDouble(txtMain.getText().toString().substring(lastIndex + 1)) / 100;
-        }else{
-            num = Double.parseDouble(txtMain.getText().toString().substring(0,lastIndex))/100;
-        }
-        txtMain.setText(txtMain.getText().toString().substring(0,lastIndex+1) + num);
-        equal(view);
-        isNewOperator = true;
+        if(txtMain.getText().toString().length() >0) {
+            double num;
+            if (!isNewOperator) {
+                num = Double.parseDouble(txtMain.getText().toString()) / 100;
+                txtMain.setText(""+num);
 
+            } else {
+                int opIndex = txtMain.getText().toString().lastIndexOf(operator);
+                num = Double.parseDouble(txtMain.getText().toString().substring(opIndex + 1)) / 100;
+                txtMain.setText(txtMain.getText().toString().substring(0, opIndex + 1) + num);
+
+            }
+
+        }
     }
 }
