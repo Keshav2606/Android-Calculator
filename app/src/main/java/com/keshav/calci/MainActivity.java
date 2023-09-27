@@ -71,41 +71,40 @@ public class MainActivity extends AppCompatActivity {
         }else{
             isDot = false;
             String newNumber="";
-                if (view.getId() == R.id.btnOne) {
-                    newNumber += "1";
-                } else if (view.getId() == R.id.btnTwo) {
-                    newNumber += "2";
-                } else if (view.getId() == R.id.btnThree) {
-                    newNumber += "3";
-                } else if (view.getId() == R.id.btnFour) {
-                    newNumber += "4";
-                } else if (view.getId() == R.id.btnFive) {
-                    newNumber += "5";
-                } else if (view.getId() == R.id.btnSix) {
-                    newNumber += "6";
-                } else if (view.getId() == R.id.btnSeven) {
-                    newNumber += "7";
-                } else if (view.getId() == R.id.btnEight) {
-                    newNumber += "8";
-                } else if (view.getId() == R.id.btnNine) {
-                    newNumber += "9";
-                } else if (view.getId() == R.id.btnZero) {
-                    newNumber += "0";
-                } else if (view.getId() == R.id.btnDZero) {
-                    newNumber += "00";
-                } else if (view.getId() == R.id.btnDot && isDot == false) {
-                    newNumber += ".";
-                    isDot = true;
-                }
-                txtMain.append(newNumber);
-                equal(view);
+            if (view.getId() == R.id.btnOne) {
+                newNumber += "1";
+            } else if (view.getId() == R.id.btnTwo) {
+                newNumber += "2";
+            } else if (view.getId() == R.id.btnThree) {
+                newNumber += "3";
+            } else if (view.getId() == R.id.btnFour) {
+                newNumber += "4";
+            } else if (view.getId() == R.id.btnFive) {
+                newNumber += "5";
+            } else if (view.getId() == R.id.btnSix) {
+                newNumber += "6";
+            } else if (view.getId() == R.id.btnSeven) {
+                newNumber += "7";
+            } else if (view.getId() == R.id.btnEight) {
+                newNumber += "8";
+            } else if (view.getId() == R.id.btnNine) {
+                newNumber += "9";
+            } else if (view.getId() == R.id.btnZero) {
+                newNumber += "0";
+            } else if (view.getId() == R.id.btnDZero) {
+                newNumber += "00";
+            } else if (view.getId() == R.id.btnDot && isDot == false) {
+                newNumber += ".";
+                isDot = true;
+            }
+            txtMain.append(newNumber);
+            equal(view);
         }
     }
 
     public void operatorEvent(View view) {
 
         isNewOperator = true;
-        int opIndex = txtMain.getText().toString().lastIndexOf(operator);
         if(output != 0.0){
             initialNumber = String.valueOf(output);
             txtMain.setText(initialNumber);
@@ -114,19 +113,16 @@ public class MainActivity extends AppCompatActivity {
             txtResult.setTextColor(getResources().getColor(R.color.gray));
         }
 
-            if (view.getId() == R.id.btnMultiply) {
-                operator = "*";
-            } else if (view.getId() == R.id.btnMinus) {
-                operator = "-";
-            } else if (view.getId() == R.id.btnDivide) {
-                operator = "/";
-            } else if (view.getId() == R.id.btnPlus) {
-                operator = "+";
-            }
-            txtMain.setText(txtMain.getText().toString().substring(0, opIndex)+operator);
-        if(txtMain.getText().toString().equals("")){
-            txtMain.setText("0"+operator);
+        if (view.getId() == R.id.btnMultiply) {
+            operator = "*";
+        } else if (view.getId() == R.id.btnMinus) {
+            operator = "-";
+        } else if (view.getId() == R.id.btnDivide) {
+            operator = "/";
+        } else if (view.getId() == R.id.btnPlus) {
+            operator = "+";
         }
+        txtMain.setText(txtMain.getText().toString()+operator);
 
     }
 
@@ -166,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         isNewOperator = false;
         operator = "";
         output = 0.0;
-        txtResult.setTextSize(40);
+        initialNumber = null;
     }
 
     public void delEvent(View view){
