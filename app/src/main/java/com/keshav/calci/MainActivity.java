@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isNewOperator = false;
     TextView txtResult,txtMain;
     String initialNumber;
+
     String operator = "";
     double output = 0.0;
 
@@ -28,66 +29,71 @@ public class MainActivity extends AppCompatActivity {
     public void numberEvent(View view) {
 
         if(!isNewOperator) {
+            if(txtMain.getText().toString().length() <= 18) {
 
-            String number = txtMain.getText().toString();
+                String number = txtMain.getText().toString();
 
-            if (view.getId() == R.id.btnOne) {
-                number += "1";
-            } else if (view.getId() == R.id.btnTwo) {
-                number += "2";
-            } else if (view.getId() == R.id.btnThree) {
-                number += "3";
-            } else if (view.getId() == R.id.btnFour) {
-                number += "4";
-            } else if (view.getId() == R.id.btnFive) {
-                number += "5";
-            } else if (view.getId() == R.id.btnSix) {
-                number += "6";
-            } else if (view.getId() == R.id.btnSeven) {
-                number += "7";
-            } else if (view.getId() == R.id.btnEight) {
-                number += "8";
-            } else if (view.getId() == R.id.btnNine) {
-                number += "9";
-            } else if (view.getId() == R.id.btnZero) {
-                number += "0";
-            } else if (view.getId() == R.id.btnDZero) {
-                number += "00";
-            } else if (view.getId() == R.id.btnDot) {
-                number += ".";
+                if (view.getId() == R.id.btnOne) {
+                    number += "1";
+                } else if (view.getId() == R.id.btnTwo) {
+                    number += "2";
+                } else if (view.getId() == R.id.btnThree) {
+                    number += "3";
+                } else if (view.getId() == R.id.btnFour) {
+                    number += "4";
+                } else if (view.getId() == R.id.btnFive) {
+                    number += "5";
+                } else if (view.getId() == R.id.btnSix) {
+                    number += "6";
+                } else if (view.getId() == R.id.btnSeven) {
+                    number += "7";
+                } else if (view.getId() == R.id.btnEight) {
+                    number += "8";
+                } else if (view.getId() == R.id.btnNine) {
+                    number += "9";
+                } else if (view.getId() == R.id.btnZero) {
+                    number += "0";
+                } else if (view.getId() == R.id.btnDZero) {
+                    number += "00";
+                } else if (view.getId() == R.id.btnDot) {
+                    number += ".";
+                }
+                if (txtMain.getText().toString().length() == 15) {
+                    txtMain.setTextSize(30);
+                    txtResult.setTextSize(25);
+                }
+                txtMain.setText(number);
+                txtResult.setText("=" + number);
             }
-            txtMain.setText(number);
-            txtResult.setText("="+number);
         }else{
-            String newNumber = "";
-            if (view.getId() == R.id.btnOne) {
-                newNumber += "1";
-            } else if (view.getId() == R.id.btnTwo) {
-                newNumber += "2";
-            } else if (view.getId() == R.id.btnThree) {
-                newNumber += "3";
-            } else if (view.getId() == R.id.btnFour) {
-                newNumber += "4";
-            } else if (view.getId() == R.id.btnFive) {
-                newNumber += "5";
-            } else if (view.getId() == R.id.btnSix) {
-                newNumber += "6";
-            } else if (view.getId() == R.id.btnSeven) {
-                newNumber += "7";
-            } else if (view.getId() == R.id.btnEight) {
-                newNumber += "8";
-            } else if (view.getId() == R.id.btnNine) {
-                newNumber += "9";
-            } else if (view.getId() == R.id.btnZero) {
-                newNumber += "0";
-            } else if (view.getId() == R.id.btnDZero) {
-                newNumber += "00";
-            } else if (view.getId() == R.id.btnDot) {
-                newNumber += ".";
-            }
-            txtMain.append(newNumber);
-            equal(view);
-
+            String newNumber="";
+                if (view.getId() == R.id.btnOne) {
+                    newNumber += "1";
+                } else if (view.getId() == R.id.btnTwo) {
+                    newNumber += "2";
+                } else if (view.getId() == R.id.btnThree) {
+                    newNumber += "3";
+                } else if (view.getId() == R.id.btnFour) {
+                    newNumber += "4";
+                } else if (view.getId() == R.id.btnFive) {
+                    newNumber += "5";
+                } else if (view.getId() == R.id.btnSix) {
+                    newNumber += "6";
+                } else if (view.getId() == R.id.btnSeven) {
+                    newNumber += "7";
+                } else if (view.getId() == R.id.btnEight) {
+                    newNumber += "8";
+                } else if (view.getId() == R.id.btnNine) {
+                    newNumber += "9";
+                } else if (view.getId() == R.id.btnZero) {
+                    newNumber += "0";
+                } else if (view.getId() == R.id.btnDZero) {
+                    newNumber += "00";
+                } else if (view.getId() == R.id.btnDot) {
+                    newNumber += ".";
+                }
+                txtMain.append(newNumber);
+                equal(view);
         }
     }
 
@@ -156,16 +162,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void delEvent(View view){
-        if(txtMain.getText().toString().length() == 1)
-            clearEvent(view);
-        else {
+        if(txtMain.getText().toString().length() > 1) {
             int lastIndex = txtMain.getText().toString().length();
-            txtResult.setTextSize(30);
-            txtMain.setTextColor(this.getResources().getColor(R.color.white));
-            txtMain.setTextSize(40);
+            if (txtMain.getText().toString().length() <= 15) {
+                txtResult.setTextSize(30);
+                txtMain.setTextColor(this.getResources().getColor(R.color.white));
+                txtMain.setTextSize(40);
+            }
             txtResult.setTextColor(getResources().getColor(R.color.gray));
             txtMain.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
             txtResult.setText(txtMain.getText().toString().substring(0, lastIndex - 1));
+        }else{
+            clearEvent(view);
         }
 
     }
